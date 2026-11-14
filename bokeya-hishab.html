@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ফিক্সেশন এর হিসাব</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mu:#5d6773;--ac:#0b6e4f;--ac2:#e6f4ee;--bd:#d9dee4;--hi:#fff6dd;--wn:#fdecea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171b;--card:#1d2127;--tx:#e8ebef;--mu:#9aa5b1;--ac:#4cc9a0;--ac2:#1d3a31;--bd:#2f363f;--hi:#3a3216;--wn:#3b2321}}
+:root[data-theme="dark"]{--bg:#14171b;--card:#1d2127;--tx:#e8ebef;--mu:#9aa5b1;--ac:#4cc9a0;--ac2:#1d3a31;--bd:#2f363f;--hi:#3a3216;--wn:#3b2321}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Noto Sans Bengali",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:780px;margin:0 auto;padding:16px}
+h1{text-align:center;font-size:1.6rem;margin:8px 0 12px}
+.warn{background:var(--wn);border-radius:10px;padding:8px 12px;font-size:.8rem;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:4px 14px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.row:last-child{border-bottom:0}
+.n{color:var(--mu);min-width:30px}
+.lb{flex:1 1 250px}
+.lb small{display:block;color:var(--mu);font-size:.74rem}
+select{font:inherit;padding:7px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);min-width:130px}
+.v{min-width:130px;text-align:right;font-weight:700;padding:6px 12px;border-radius:8px;background:var(--ac2);color:var(--ac)}
+.v.neg{color:#c0392b}
+.fin{background:var(--hi);margin:0 -14px;padding:10px 14px}
+.fin .v{background:var(--ac);color:#fff}
+button{font:inherit;border:1px solid var(--ac);background:transparent;color:var(--ac);padding:8px 16px;border-radius:10px;cursor:pointer;display:block;margin:12px auto}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;margin:6px 0 4px}
+.info label{display:flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
+.info input{flex:1;min-width:0;font:inherit;font-weight:400;padding:5px 8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
+@media (max-width:560px){.info{grid-template-columns:1fr}}
+.h2{font-size:1.35rem;margin:20px 0 10px}
+.mline{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700;margin:0 0 10px}
+@page{size:A4;margin:8mm}
+@media print{
+:root{padding:0!important}
+body{background:#fff;color:#000;font-size:11.5px;line-height:1.3}
+.wrap{max-width:none;padding:0}
+h1{font-size:17px;margin:0 0 5px}
+.h2{font-size:15px;margin:9px 0 4px}
+.card{border:1px solid #999;border-radius:0;padding:0 8px}
+.row{padding:3px 0;gap:3px 8px;break-inside:avoid}
+.v{padding:1px 8px;min-width:100px;background:none;color:#000;border:1px solid #bbb;border-radius:0}
+.v.neg{color:#000}
+.fin{background:none;margin:0;padding:3px 0}
+.fin .v{background:none;color:#000;font-weight:800}
+select{-webkit-appearance:none;appearance:none;border:1px solid #bbb;background:none;color:#000;padding:1px 6px;min-width:0;font-size:11.5px}
+.noprint{display:none}
+.mline{margin:0 0 4px}
+.info{margin:3px 0 2px;gap:4px 18px;grid-template-columns:1fr 1fr}
+.info label{font-weight:700}
+.info input{border:0;border-bottom:1px solid #000;border-radius:0;background:none;color:#000;padding:1px 4px;font-size:11.5px}
+}
+.plink{display:none}
+@media print{.plink{display:block;position:fixed;right:0;bottom:0;font-size:10px;color:#000}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>জাতীয় বেতন স্কেল / ২০২৬ খ্রিঃ</h1>
+<h1 style="margin-top:0">বেতন নির্ধারণ</h1>
+<div class="info">
+<label>নাম :<input type="text" id="nm"></label>
+<label>পদবি :<input type="text" id="dg"></label>
+<label>বর্তমান গ্রেড :<input type="text" id="cg"></label>
+<label>Substantive গ্রেড :<input type="text" id="sg"></label>
+</div>
+<h1 class="h2">ফিক্সেশন এর হিসাব</h1>
+
+<div class="card" id="card"></div>
+<h1 class="h2">বকেয়া হিসাব</h1>
+<div class="mline">জুলাই<span id="mend"></span> = <select id="mm"></select> মাস</div>
+<div class="card" id="card2"></div>
+<button id="prt" class="noprint">🖨️ প্রিন্ট</button>
+</div>
+<div class="plink">https://afia-ema.github.io/abbu/fixation-calculator-2.html</div>
+<script>
+const $=id=>document.getElementById(id);
+const bn=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[d]);
+const f=n=>"৳ "+Math.round(n).toLocaleString("bn-BD");
+const N=s=>s.split(" ").map(Number);
+/* বর্তমান স্কেল (২০১৫) — গেজেটের ২য় কলাম */
+const CUR_DATA={"1":[78000],"2":[66000,68480,71050,73720,76490],"3":[56500,58760,61120,63570,66120,68770,71530,74400],"4":[50000,52000,54080,56250,58500,60840,63280,65820,68460,71200],"5":[43000,44940,46970,49090,51300,53610,56030,58560,61200,63960,66840,69850],"6":[35500,37280,39150,41110,43170,45330,47600,49980,52480,55110,57870,60770,63810,67010],"7":[29000,30450,31980,33580,35260,37030,38890,40840,42890,45040,47300,49670,52160,54770,57510,60390,63410],"8":[23000,24150,25360,26630,27970,29370,30840,32390,34010,35720,37510,39390,41360,43430,45610,47900,50300,52820,55470],"9":[22000,23100,24260,25480,26760,28100,29510,30990,32540,34170,35880,37680,39570,41550,43630,45820,48120,50530,53060],"10":[16000,16800,17640,18530,19460,20440,21470,22550,23680,24870,26120,27430,28810,30260,31780,33370,35040,36800,38640],"11":[12500,13130,13790,14480,15210,15980,16780,17620,18510,19440,20420,21450,22530,23660,24850,26100,27410,28790,30230],"12":[11300,11870,12470,13100,13760,14450,15180,15940,16740,17580,18460,19390,20360,21380,22450,23580,24760,26000,27300],"13":[11000,11550,12130,12740,13380,14050,14760,15500,16280,17100,17960,18860,19810,20810,21860,22960,24110,25320,26590],"14":[10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310,22380,23500,24680],"15":[9700,10190,10700,11240,11810,12410,13040,13700,14390,15110,15870,16670,17510,18390,19310,20280,21300,22370,23490],"16":[9300,9770,10260,10780,11320,11890,12490,13120,13780,14470,15200,15960,16760,17600,18480,19410,20390,21410,22490],"17":[9000,9450,9930,10430,10960,11510,12090,12700,13340,14010,14720,15460,16240,17060,17920,18820,19770,20760,21800],"18":[8800,9240,9710,10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310],"19":[8500,8930,9380,9850,10350,10870,11420,12000,12600,13230,13900,14600,15330,16100,16910,17760,18650,19590,20570],"20":[8250,8670,9110,9570,10050,10560,11090,11650,12240,12860,13510,14190,14900,15650,16440,17270,18140,19050,20010]};
+const CUR=g=>CUR_DATA[g];
+/* নতুন স্কেল (২০২৬) — রিজার্ভ ভ্যালু */
+const NEW={
+1:[156000],
+2:N("132000 135700 139400 143200 147200 151200 153000"),
+3:N("113000 117000 121100 125300 129700 134300 139000 143800 148800"),
+4:N("100000 103500 107200 110900 114800 118800 123000 127300 131700 136300 142400"),
+5:N("86000 89500 93100 96800 100700 104700 108900 113200 117700 122500 127400 132400 139700"),
+6:N("71000 74600 78300 82200 86400 90700 95200 100000 104900 110200 115700 121500 127600 134000"),
+7:N("58000 60900 64000 67200 70500 74100 77800 81700 85700 90000 94500 99200 104200 109400 114900 120600 126800"),
+8:N("46000 48300 50800 53300 56000 58800 61700 64800 68000 71400 75000 78700 82700 86800 91100 95700 100500 105500 110800"),
+9:N("44000 46200 48600 51000 53500 56200 59000 62000 65100 68300 71700 75300 79100 83000 87200 91500 96100 100900 105900"),
+10:N("32000 33600 35300 37100 38900 40900 42900 45100 47300 49700 52200 54800 57500 60400 63400 66600 69900 73400 77300"),
+11:N("25000 26300 27600 29000 30400 32000 33600 35200 37000 38800 40800 42800 44900 47200 49500 52000 54600 57300 60500"),
+12:N("24300 25600 26800 28200 29600 31100 32600 34200 36000 37700 39600 41600 43700 45900 48200 50600 53100 55700 58700"),
+13:N("24000 25200 26500 27800 29200 30700 32200 33800 35500 37300 39100 41100 43200 45300 47600 49900 52400 55100 58000"),
+14:N("23500 24700 26000 27300 28600 30000 31500 33100 34800 36500 38300 40200 42300 44400 46600 48900 51300 53900 56800"),
+15:N("22800 24000 25200 26400 27800 29100 30600 32100 33700 35400 37200 39000 41000 43000 45200 47400 49800 52300 55200"),
+16:N("21900 23000 24200 25400 26700 28000 29400 30900 32400 34000 35700 37500 39400 41300 43400 45600 47900 50200 52900"),
+17:N("21400 22500 23600 24800 26100 27400 28700 30200 31700 33200 34900 36700 38500 40400 42400 44500 46800 49100 51900"),
+18:N("21000 22100 23200 24400 25600 26900 28200 29600 31100 32600 34300 36000 37800 39600 41600 43700 45900 48200 50900"),
+19:N("20500 21600 22700 23800 25000 26200 27500 28900 30300 31900 33400 35100 36900 38700 40600 42700 44800 47000 49600"),
+20:N("20000 21000 22100 23200 24400 25600 26900 28200 29600 31100 32600 34300 36000 37800 39600 41600 43700 45900 48400")};
+const ROWS=[
+[1,"বর্তমান গ্রেড :","gr"],[2,"বর্তমান মূল বেতন (ইনক্রিমেন্ট সহ) :","pay"],["","ইনক্রিমেন্ট প্রাপ্ত :","inc"],
+[3,"বর্তমান মূল বেতন (ইনক্রিমেন্ট ব্যতীত) :","r3"],
+[4,"বর্তমান গ্রেড এর প্রারম্ভিক ধাপ :","r4"],[5,"পার্থক্য (৩-৪) :","r5"],
+[6,"নতুন স্কেল এর প্রারম্ভিক ধাপ :","r6"],[7,"মোট (৫+৬) :","r7"],
+[8,"ধাপ :","r8"],
+[9,"ইনক্রিমেন্ট সহ ধাপ :","r9"],[10,"পার্থক্য (৮-৩) :","r10"],
+[11,"১০ এর","r11","p1"],[12,"০১/০৭/২৬ খ্রি তারিখ প্রাপ্য মূল বেতন (৩+৯-৮+১১) :","r12"],
+[13,"১০ এর","r13","p2"],[14,"০১/০১/২৭ এ প্রাপ্য মূল বেতন (১২+১৩) :","r14"],
+[15,"০১/০৭/২৭ তারিখ এ নির্ধারিত মূল বেতন :","r15"]];
+$("card").innerHTML=ROWS.map(([n,l,id,x])=>{
+ let c;
+ if(id=="gr"||id=="pay")c=`<select id="${id}"></select>`;
+ else if(id=="inc")c=`<select id="inc"><option value="1">হ্যাঁ</option><option value="0">না</option></select>`;
+ else if(x=="p1")c=`<select id="p1"><option value="40">৪০%</option><option value="50">৫০%</option></select><span class="v" id="${id}"></span>`;
+ else if(x=="p2")c=`<select id="p2"><option value="30">৩০%</option><option value="25">২৫%</option></select><span class="v" id="${id}"></span>`;
+ else c=`<span class="v" id="${id}"></span>`;
+ const sm=x&&x[0]!="p"?`<small>${x}</small>`:"";
+ return `<div class="row${n==14||n==15?" fin":""}"><span class="n">${n===""?"":bn(n)+"।"}</span><span class="lb">${l}${sm}</span>${c}</div>`}).join("");
+const PCT=[35,40,45,50,55,60,65];
+const opt=(a,u)=>a.map(v=>`<option value="${v}">${bn(v)}${u}</option>`).join("");
+const ROWS2=[["ক","প্রাপ্য মূল বেতন (১২-৩) :","a1"],["খ","অতিরিক্ত গৃহীত মূল বেতন (২-৩) :","a2"],["গ","গৃহীত বাড়ি ভাড়া (২ × %) :","a3","hr1"],["ঘ","প্রাপ্য বাড়ি ভাড়া (৩ × %) :","a4","hr2"],["ঙ","অতিরিক্ত গৃহীত বাড়ি ভাড়া (গ-ঘ) :","a5"],["চ","অতিরিক্ত গৃহীত বিশেষ সুবিধা (২ × %) :","a6","sp"],["ছ","মোট কর্তন (খ+ঙ+চ) :","a7"],["জ","নীট প্রাপ্য বকেয়া (ক−ছ) × মাস :","a8"]];
+$("card2").innerHTML=ROWS2.map(([n,l,id,x])=>`<div class="row${id=="a8"?" fin":""}"><span class="n">${n}।</span><span class="lb">${l}</span>${x?`<select id="${x}">${opt(x=="sp"?[10,15]:PCT,"%")}</select>`:""}<span class="v" id="${id}"></span></div>`).join("");
+$("mm").innerHTML=[1,2,3,4,5,6].map(v=>`<option value="${v}">${bn("0"+v)}</option>`).join("");$("mm").value=4;
+const MON=["জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
+const OK=g=>!!NEW[g];
+$("gr").innerHTML=Array.from({length:20},(_,i)=>i+1).map(g=>`<option value="${g}"${OK(g)?"":" disabled"}>গ্রেড-${bn(g)}${OK(g)?"":" (তথ্য নেই)"}</option>`).join("");
+function fillPay(){const c=CUR(+$("gr").value);$("pay").innerHTML=c.map((v,i)=>`<option value="${i}">${f(v)}</option>`).join("");$("pay").value=Math.min(2,c.length-1)}
+function calc(){
+ const g=+$("gr").value,c=CUR(g),n=NEW[g],L=n.length;
+ const r2=c[+$("pay").value],i=c.indexOf(r2),r3=$("inc").value=="0"?r2:(i>0?c[i-1]:r2),r4=c[0],r5=r3-r4,r6=n[0],r7=r5+r6;
+ let k=n.findIndex(v=>v>=r7);if(k<0)k=L-1;
+ const k9=Math.min(k+1,L-1),r8=n[k],r9=n[k9],r15=n[Math.min(k9+1,L-1)];
+ const r10=r8-r3,r11=Math.round(r10*$("p1").value/100),r12=r3+r9-r8+r11,r13=Math.round(r10*$("p2").value/100),r14=r12+r13;
+ const m=+$("mm").value,a1=r12-r3,a2=r2-r3,a3=Math.round(r2*$("hr1").value/100),a4=Math.round(r3*$("hr2").value/100),a5=a3-a4,a6=Math.round(r2*$("sp").value/100),a7=a2+a5+a6,a8=(a1-a7)*m;
+ $("mend").textContent=m==1?"":" – "+MON[m-1];
+ Object.entries({r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,a1,a2,a3,a4,a5,a6,a7,a8}).forEach(([id,v])=>{const e=$(id);e.textContent=f(v);e.classList.toggle("neg",v<0)});
+}
+$("gr").onchange=()=>{fillPay();calc()};
+["pay","inc","p1","p2","mm","hr1","hr2","sp"].forEach(id=>$(id).onchange=calc);
+$("prt").onclick=()=>window.print();
+$("gr").value=10;fillPay();calc();
+</script>
+</body>
+</html>
