@@ -64,7 +64,7 @@ select{-webkit-appearance:none;appearance:none;border:1px solid #bbb;background:
 .info input{border:0;border-bottom:1px solid #000;border-radius:0;background:none;color:#000;padding:1px 4px;font-size:11.5px}
 }
 .plink{display:none}
-@media print{.plink{display:block;position:fixed;right:0;bottom:0;font-size:10px;color:#000}}
+@media print{.plink{display:block;text-align:right;font-size:10px;color:#000;margin-top:6px}}
 </style>
 </head>
 <body>
@@ -85,8 +85,8 @@ select{-webkit-appearance:none;appearance:none;border:1px solid #bbb;background:
 <div class="mline">জুলাই<span id="mend"></span> = <select id="mm"></select> মাস</div>
 <div class="card" id="card2"></div>
 <button id="prt" class="noprint">🖨️ প্রিন্ট</button>
-</div>
 <div class="plink">https://afia-ema.github.io/abbu/bokeya-hishab-2026.html</div>
+</div>
 <script>
 const $=id=>document.getElementById(id);
 const bn=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[d]);
@@ -124,11 +124,11 @@ const ROWS=[
 [6,"নতুন স্কেল এর প্রারম্ভিক ধাপ : (জাঃ বেঃ স্কেল / ২০২৬)","r6"],[7,"মোট (৫+৬) :","r7"],
 [8,"ধাপ : (ইনক্রিমেন্ট ব্যতীত) (জাঃ বেঃ স্কেল / ২০২৬)","r8"],
 [9,"ইনক্রিমেন্ট সহ ধাপ : (জাঃ বেঃ স্কেল / ২০২৬)","r9"],[10,"পার্থক্য (৮-৩) :","r10"],
-[11,"১০ এর ৪০% / ৫০% : (০১/০৭/২৬ খ্রিঃ তারিখে ইনক্রিমেন্ট ব্যতীত বুদ্ধি)","r11","p1"],
+[11,"১০ এর ৪০% / ৫০% : (০১/০৭/২৬ খ্রিঃ তারিখে ইনক্রিমেন্ট ব্যতীত বৃদ্ধি)","r11","p1"],
 [12,"০১/০৭/২৬ খ্রিঃ তারিখ প্রাপ্য মূল বেতন (৩+৯-৮+১১) : (ইনক্রিমেন্ট সহ)","r12"],
-[13,"১০ এর ৩০% / ২৫% : (০১/০৭/২৬ খ্রিঃ তারিখে ইনক্রিমেন্ট ব্যতীত বুদ্ধি)","r13","p2"],
-[14,"০১/০১/২৭ এ প্রাপ্য মূল বেতন (১২+১৩) : (০১/০৭/২৬ খ্রিঃ তারিখে ৭০% বুদ্ধি)","r14"],
-[15,"০১/০৭/২৭ তারিখ এ নির্ধারিত মূল বেতন (ইনক্রিমেন্ট সহ ১০০% বুদ্ধি)","r15"]];
+[13,"১০ এর ৩০% / ২৫% : (০১/০৭/২৬ খ্রিঃ তারিখে ইনক্রিমেন্ট ব্যতীত বৃদ্ধি)","r13","p2"],
+[14,"০১/০১/২৭ এ প্রাপ্য মূল বেতন (১২+১৩) : (০১/০৭/২৬ খ্রিঃ তারিখে ৭০% বৃদ্ধি)","r14"],
+[15,"০১/০৭/২৭ তারিখ এ নির্ধারিত মূল বেতন (ইনক্রিমেন্ট সহ ১০০% বৃদ্ধি)","r15"]];
 $("card").innerHTML=ROWS.map(([n,l,id,x])=>{
  let c;
  if(id=="gr"||id=="pay")c=`<select id="${id}"></select>`;
