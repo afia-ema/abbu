@@ -73,7 +73,7 @@ select{-webkit-appearance:none;appearance:none;border:1px solid #bbb;background:
 <h1 style="margin-top:0">বেতন নির্ধারণ</h1>
 <div class="info">
 <label class="full">অফিসের নাম :<input type="text" id="of"></label>
-<label>চাকুরিজীবির নাম :<input type="text" id="nm"></label>
+<label>চাকুরিজীবীর নাম :<input type="text" id="nm"></label>
 <label>পদবি :<input type="text" id="dg"></label>
 <label>বর্তমান গ্রেড :<input type="text" id="cg"></label>
 <label>Substantive গ্রেড :<input type="text" id="sg"></label>
@@ -118,7 +118,7 @@ const NEW={
 19:N("20500 21600 22700 23800 25000 26200 27500 28900 30300 31900 33400 35100 36900 38700 40600 42700 44800 47000 49600"),
 20:N("20000 21000 22100 23200 24400 25600 26900 28200 29600 31100 32600 34300 36000 37800 39600 41600 43700 45900 48400")};
 const ROWS=[
-[1,"বর্তমান গ্রেড :","gr"],[2,"বর্তমান মূল বেতন (ইনক্রিমেন্ট সহ) : (০১/০৭/২৬ খ্রিঃ তারিখে - জাঃ বেঃ স্কেল / ২০১৫)","pay"],["","ইনক্রিমেন্ট প্রাপ্ত :","inc"],
+[1,"বর্তমান গ্রেড :","gr"],[2,"বর্তমান মূল বেতন (ইনক্রিমেন্ট সহ) : (০১/০৭/২৬ খ্রিঃ তারিখে - জাঃ বেঃ স্কেল / ২০১৫)","pay"],["","৩০/০৬/২৬ খ্রিঃ তারিখে বেতন স্কেলের শেষ ধাপ কিনা :","inc"],
 [3,"বর্তমান মূল বেতন (ইনক্রিমেন্ট ব্যতীত) : (৩০/০৬/২৬ খ্রিঃ তারিখে - জাঃ বেঃ স্কেল / ২০১৫)","r3"],
 [4,"বর্তমান গ্রেড এর প্রারম্ভিক ধাপ : (জাঃ বেঃ স্কেল / ২০১৫)","r4"],[5,"পার্থক্য (৩-৪) :","r5"],
 [6,"নতুন স্কেল এর প্রারম্ভিক ধাপ : (জাঃ বেঃ স্কেল / ২০২৬)","r6"],[7,"মোট (৫+৬) :","r7"],
@@ -149,7 +149,7 @@ $("gr").innerHTML=Array.from({length:20},(_,i)=>i+1).map(g=>`<option value="${g}
 function fillPay(){const c=CUR(+$("gr").value);$("pay").innerHTML=c.map((v,i)=>`<option value="${i}">${f(v)}</option>`).join("");$("pay").value=Math.min(2,c.length-1)}
 function calc(){
  const g=+$("gr").value,c=CUR(g),n=NEW[g],L=n.length;
- const r2=c[+$("pay").value],i=c.indexOf(r2),r3=$("inc").value=="0"?r2:(i>0?c[i-1]:r2),r4=c[0],r5=r3-r4,r6=n[0],r7=r5+r6;
+ const r2=c[+$("pay").value],i=c.indexOf(r2),r3=$("inc").value=="1"?r2:(i>0?c[i-1]:r2),r4=c[0],r5=r3-r4,r6=n[0],r7=r5+r6;
  let k=n.findIndex(v=>v>=r7);if(k<0)k=L-1;
  const k9=Math.min(k+1,L-1),r8=n[k],r9=n[k9],r15=n[Math.min(k9+1,L-1)];
  const r10=r8-r3,r11=Math.round(r10*$("p1").value/100),r12=r3+r9-r8+r11,r13=Math.round(r10*$("p2").value/100),r14=r12+r13;
