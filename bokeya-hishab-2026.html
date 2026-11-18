@@ -132,7 +132,7 @@ const ROWS=[
 $("card").innerHTML=ROWS.map(([n,l,id,x])=>{
  let c;
  if(id=="gr"||id=="pay")c=`<select id="${id}"></select>`;
- else if(id=="inc")c=`<select id="inc"><option value="1">হ্যাঁ</option><option value="0">না</option></select>`;
+ else if(id=="inc")c=`<select id="inc"><option value="1">হ্যাঁ</option><option value="0" selected>না</option></select>`;
  else if(x=="p1")c=`<select id="p1"><option value="40">৪০%</option><option value="50">৫০%</option></select><span class="v" id="${id}"></span>`;
  else if(x=="p2")c=`<select id="p2"><option value="30">৩০%</option><option value="25">২৫%</option></select><span class="v" id="${id}"></span>`;
  else c=`<span class="v" id="${id}"></span>`;
