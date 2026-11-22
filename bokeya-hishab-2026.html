@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta name="google-site-verification"
+<!-- Search Console: এখানে আপনার google-site-verification লাইনটি (পুরোটা) বসান -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>জাতীয় বেতন স্কেল ২০২৬ — বেতন নির্ধারণ ও বকেয়া হিসাব</title>
@@ -83,6 +83,7 @@ select{-webkit-appearance:none;appearance:none;border:1px solid #bbb;background:
 <div class="card" id="card"></div>
 <h1 class="h2">বকেয়া হিসাব</h1>
 <div class="mline">জুলাই<span id="mend"></span> = <select id="mm"></select> মাস</div>
+<div class="mline">সরকারি বাসায় বসবাস করেন কিনা : <select id="gh"><option value="y">হ্যাঁ</option><option value="n" selected>না</option><option value="f">নির্ধারিত বাসা</option></select></div>
 <div class="card" id="card2"></div>
 <button id="prt" class="noprint">🖨️ প্রিন্ট</button>
 <div class="plink">https://afia-ema.github.io/abbu/bokeya-hishab-2026.html</div>
@@ -144,6 +145,7 @@ const ROWS2=[["ক","প্রাপ্য মূল বেতন (১২-৩) :
 $("card2").innerHTML=ROWS2.map(([n,l,id,x])=>`<div class="row${id=="a8"?" fin":""}"><span class="n">${n}।</span><span class="lb">${l}</span>${x?`<select id="${x}">${opt(x=="sp"?[10,15]:PCT,"%")}</select>`:""}<span class="v" id="${id}"></span></div>`).join("");
 $("mm").innerHTML=[1,2,3,4,5,6].map(v=>`<option value="${v}">${bn("0"+v)}</option>`).join("");$("mm").value=4;
 const MON=["জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
+function setDef(){const g=+$("gr").value,lo=g<=9;$("p1").value=lo?40:50;$("p2").value=lo?30:25;$("sp").value=lo?15:10}
 const OK=g=>!!NEW[g];
 $("gr").innerHTML=Array.from({length:20},(_,i)=>i+1).map(g=>`<option value="${g}"${OK(g)?"":" disabled"}>গ্রেড-${bn(g)}${OK(g)?"":" (তথ্য নেই)"}</option>`).join("");
 function fillPay(){const c=CUR(+$("gr").value);$("pay").innerHTML=c.map((v,i)=>`<option value="${i}">${f(v)}</option>`).join("");$("pay").value=Math.min(2,c.length-1)}
@@ -153,14 +155,14 @@ function calc(){
  let k=n.findIndex(v=>v>=r7);if(k<0)k=L-1;
  const k9=Math.min(k+1,L-1),r8=n[k],r9=n[k9],r15=n[Math.min(k9+1,L-1)];
  const r10=r8-r3,r11=Math.round(r10*$("p1").value/100),r12=r3+r9-r8+r11,r13=Math.round(r10*$("p2").value/100),r14=r12+r13;
- const m=+$("mm").value,a1=r12-r3,a2=r2-r3,a3=r2*$("hr1").value/100,a4=r3*$("hr2").value/100,a5=a3-a4,a6=r2*$("sp").value/100,a7=a2+a5+a6,a8=(a1-a7)*m;
+ const m=+$("mm").value,h=$("gh").value!="y",a1=r12-r3,a2=r2-r3,a3=h?r2*$("hr1").value/100:0,a4=h?r3*$("hr2").value/100:0,a5=a3-a4,a6=r2*$("sp").value/100,a7=a2+a5+a6,a8=(a1-a7)*m;
  $("mend").textContent=m==1?"":" – "+MON[m-1];
  Object.entries({r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,a1,a2,a3,a4,a5,a6,a7,a8}).forEach(([id,v])=>{const e=$(id);e.textContent=f(v);e.classList.toggle("neg",v<0)});
 }
-$("gr").onchange=()=>{fillPay();calc()};
-["pay","inc","p1","p2","mm","hr1","hr2","sp"].forEach(id=>$(id).onchange=calc);
+$("gr").onchange=()=>{fillPay();setDef();calc()};
+["pay","inc","p1","p2","mm","hr1","hr2","sp","gh"].forEach(id=>$(id).onchange=calc);
 $("prt").onclick=()=>window.print();
-$("gr").value=10;fillPay();calc();
+$("gr").value=10;fillPay();setDef();calc();
 </script>
 </body>
 </html>
