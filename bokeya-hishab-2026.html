@@ -145,7 +145,7 @@ const ROWS2=[["ক","প্রাপ্য মূল বেতন (১২-৩) :
 $("card2").innerHTML=ROWS2.map(([n,l,id,x])=>`<div class="row${id=="a8"?" fin":""}"><span class="n">${n}।</span><span class="lb">${l}</span>${x?`<select id="${x}">${opt(x=="sp"?[10,15]:PCT,"%")}</select>`:""}<span class="v" id="${id}"></span></div>`).join("");
 $("mm").innerHTML=[1,2,3,4,5,6].map(v=>`<option value="${v}">${bn("0"+v)}</option>`).join("");$("mm").value=4;
 const MON=["জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
-function setDef(){const g=+$("gr").value,lo=g<=9;$("p1").value=lo?40:50;$("p2").value=lo?30:25;$("sp").value=lo?15:10}
+function setDef(){const g=+$("gr").value,lo=g<=9;$("p1").value=lo?40:50;$("p2").value=lo?30:25;$("sp").value=lo?10:15}
 const OK=g=>!!NEW[g];
 $("gr").innerHTML=Array.from({length:20},(_,i)=>i+1).map(g=>`<option value="${g}"${OK(g)?"":" disabled"}>গ্রেড-${bn(g)}${OK(g)?"":" (তথ্য নেই)"}</option>`).join("");
 function fillPay(){const c=CUR(+$("gr").value);$("pay").innerHTML=c.map((v,i)=>`<option value="${i}">${f(v)}</option>`).join("");$("pay").value=Math.min(2,c.length-1)}
